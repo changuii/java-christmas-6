@@ -8,6 +8,10 @@ public class OutputView {
         print(OutputMessage.EVENT_INTRODUCE);
     }
 
+    public void printVisitDayInput() {
+        print(OutputMessage.VISIT_DAY_INPUT);
+    }
+
     private void print(final Object message, final Object... values) {
         System.out.println(formatMessage(message.toString(), values));
     }
