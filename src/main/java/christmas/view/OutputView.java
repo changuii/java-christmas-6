@@ -1,6 +1,7 @@
 package christmas.view;
 
 import christmas.enums.OutputMessage;
+import christmas.exception.CustomException;
 
 public class OutputView {
 
@@ -18,6 +19,10 @@ public class OutputView {
 
     public void printEventPreviewIntroduce(final int visitDay) {
         print(OutputMessage.EVENT_PREVIEW_INTRODUCE, visitDay);
+    }
+
+    public void printErrorMessage(final CustomException customException) {
+        print(customException.getMessage());
     }
 
     private void print(final Object message, final Object... values) {
