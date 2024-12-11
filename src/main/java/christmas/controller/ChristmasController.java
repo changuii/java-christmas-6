@@ -25,7 +25,13 @@ public class ChristmasController {
 
     public void run() {
         outputView.printEventIntroduce();
+        int visitDay = retryHandler.retryUntilNotException(this::inputVisitDay, outputView::printErrorMessage);
         Order order = retryHandler.retryUntilNotException(this::inputOrder, outputView::printErrorMessage);
+    }
+
+    private int inputVisitDay() {
+        outputView.printVisitDayInput();
+        return inputView.readVisitDay();
     }
 
     private Order inputOrder() {
