@@ -17,6 +17,13 @@ public class Order {
         return new Order(orderMenus);
     }
 
+    public int calculateTotalPrice() {
+        return orderMenus.stream()
+                .mapToInt(orderMenu -> orderMenu.calculateTotalPrice())
+                .sum();
+    }
+
+
     private void validate(final List<OrderMenu> orderMenus) {
         validateOrderMenusTotalCountLessThanMax(orderMenus);
         validateOrderMenusNotOnlyDrink(orderMenus);
@@ -34,7 +41,6 @@ public class Order {
                 .findAny()
                 .orElseThrow(() -> new CustomException(ErrorMessage.MENU_INVALID));
     }
-
 
     private int getTotalCount(final List<OrderMenu> orderMenus) {
         return orderMenus.stream()

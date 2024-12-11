@@ -1,5 +1,6 @@
 package christmas.enums;
 
+import christmas.exception.CustomException;
 import java.util.Arrays;
 
 public enum Menu {
@@ -42,6 +43,17 @@ public enum Menu {
     public static boolean isDrink(final String orderName) {
         return Arrays.stream(values())
                 .anyMatch(menu -> menu.name.equals(orderName) && menu.menuType == MenuType.DRINK);
+    }
+
+    public static int calculatePrice(final String orderName, final int orderCount) {
+        return getMenuByOrderName(orderName).price * orderCount;
+    }
+
+    private static Menu getMenuByOrderName(final String orderName) {
+        return Arrays.stream(values())
+                .filter(menu -> menu.equals(orderName))
+                .findAny()
+                .orElseThrow(() -> new CustomException(ErrorMessage.MENU_INVALID));
     }
 
 }
