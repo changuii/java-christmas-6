@@ -24,6 +24,10 @@ public class OrderMenu {
         }
     }
 
+    public boolean isDrink() {
+        return Menu.isDrink(name);
+    }
+
     public int getCount() {
         return count;
     }

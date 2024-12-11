@@ -39,4 +39,9 @@ public enum Menu {
                 .anyMatch(menu -> menu.name.equals(orderName));
     }
 
+    public static boolean isDrink(final String orderName) {
+        return Arrays.stream(values())
+                .anyMatch(menu -> menu.name.equals(orderName) && menu.menuType == MenuType.DRINK);
+    }
+
 }

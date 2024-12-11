@@ -18,9 +18,21 @@ public class Order {
     }
 
     private void validate(final List<OrderMenu> orderMenus) {
+        validateOrderMenusTotalCountLessThanMax(orderMenus);
+        validateOrderMenusNotOnlyDrink(orderMenus);
+    }
+
+    private void validateOrderMenusTotalCountLessThanMax(final List<OrderMenu> orderMenus) {
         if (getTotalCount(orderMenus) > ORDER_MENU_COUNT_MAX) {
             throw new CustomException(ErrorMessage.MENU_INVALID);
         }
+    }
+
+    private void validateOrderMenusNotOnlyDrink(final List<OrderMenu> orderMenus) {
+        orderMenus.stream()
+                .filter(orderMenu -> !orderMenu.isDrink())
+                .findAny()
+                .orElseThrow(() -> new CustomException(ErrorMessage.MENU_INVALID));
     }
 
 
