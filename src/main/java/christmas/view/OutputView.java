@@ -12,6 +12,10 @@ public class OutputView {
         print(OutputMessage.VISIT_DAY_INPUT);
     }
 
+    public void printMenusInput() {
+        print(OutputMessage.MENUS_INPUT);
+    }
+
     private void print(final Object message, final Object... values) {
         System.out.println(formatMessage(message.toString(), values));
     }
