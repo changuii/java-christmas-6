@@ -2,7 +2,6 @@ package christmas.domain;
 
 import christmas.enums.ErrorMessage;
 import christmas.exception.CustomException;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public class VisitDay {
@@ -12,9 +11,10 @@ public class VisitDay {
     private static final int CHRISTMAS_D_DAY_END = 25;
     private static final int CHRISTMAS_D_DAY_DISCOUNT = 1000;
     private static final int CHRISTMAS_D_DAY_DISCOUNT_PER_DAY = 100;
-    private static final int WEEK_DAYS_DISCOUNT = 2023;
+    private static final int DAY_OF_THE_WEEK_DISCOUNT = 2023;
     private static final int WEEKEND_START = 5;
     private static final int WEEKEND_END = 6;
+    private static final int EMPTY_DISCOUNT = 0;
     private final int day;
 
     private VisitDay(final int day) {
@@ -40,14 +40,21 @@ public class VisitDay {
         if (isApplicableDDay()) {
             return CHRISTMAS_D_DAY_DISCOUNT + (CHRISTMAS_D_DAY_DISCOUNT_PER_DAY * (day - CHRISTMAS_D_DAY_START));
         }
-        return 0;
+        return EMPTY_DISCOUNT;
     }
 
     public int calculateWeekDaysEvent(final int dessertCount) {
         if (isWeekDays()) {
-            return dessertCount * WEEK_DAYS_DISCOUNT;
+            return dessertCount * DAY_OF_THE_WEEK_DISCOUNT;
         }
-        return 0;
+        return EMPTY_DISCOUNT;
+    }
+
+    public int calculateWeekendEvent(final int mainCount) {
+        if (isWeekend()) {
+            return mainCount * DAY_OF_THE_WEEK_DISCOUNT;
+        }
+        return EMPTY_DISCOUNT;
     }
 
     private boolean isApplicableDDay() {
@@ -57,6 +64,11 @@ public class VisitDay {
     private boolean isWeekDays() {
         int todayOfTheWeek = getDayOfTheWeek();
         return todayOfTheWeek < WEEKEND_START || WEEKEND_END < todayOfTheWeek;
+    }
+
+    private boolean isWeekend() {
+        int todayOfTheWeek = getDayOfTheWeek();
+        return WEEKEND_START <= todayOfTheWeek && todayOfTheWeek <= WEEKEND_END;
     }
 
     private int getDayOfTheWeek() {
