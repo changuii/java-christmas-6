@@ -3,6 +3,7 @@ package christmas.domain;
 import christmas.enums.ErrorMessage;
 import christmas.exception.CustomException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class VisitDay {
     private static final int VISIT_DAY_MIN = 1;
@@ -15,6 +16,8 @@ public class VisitDay {
     private static final int WEEKEND_START = 5;
     private static final int WEEKEND_END = 6;
     private static final int EMPTY_DISCOUNT = 0;
+    private static final List<Integer> SPECIAL_DAY_EVENT = List.of(3, 10, 17, 24, 25, 31);
+    private static final int SPECIAL_DAY_EVENT_DISCOUNT = 1000;
     private final int day;
 
     private VisitDay(final int day) {
@@ -57,6 +60,10 @@ public class VisitDay {
         return EMPTY_DISCOUNT;
     }
 
+    public int calculateSpecialEvent() {
+        return SPECIAL_DAY_EVENT_DISCOUNT;
+    }
+
     private boolean isApplicableDDay() {
         return CHRISTMAS_D_DAY_START <= day && day <= CHRISTMAS_D_DAY_END;
     }
@@ -69,6 +76,10 @@ public class VisitDay {
     private boolean isWeekend() {
         int todayOfTheWeek = getDayOfTheWeek();
         return WEEKEND_START <= todayOfTheWeek && todayOfTheWeek <= WEEKEND_END;
+    }
+
+    private boolean isSpecialDay() {
+        return SPECIAL_DAY_EVENT.contains(day);
     }
 
     private int getDayOfTheWeek() {
