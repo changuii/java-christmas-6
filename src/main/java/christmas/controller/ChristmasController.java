@@ -40,6 +40,8 @@ public class ChristmasController {
         EventDto eventDto = dtoConverter.convertToEvnetDto(order, visitDay);
         outputView.printEventResult(eventDto);
         outputView.printTotalEventDiscount(eventDto);
+        outputView.printAppliedEventTotalPrice(
+                order.calculateTotalPrice() - eventDto.getTotalDiscountExcludeByFreeGift());
     }
 
     private VisitDay inputVisitDay() {

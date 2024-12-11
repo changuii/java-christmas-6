@@ -9,4 +9,8 @@ public record EventDto(int dDay, int dayOfTheWeek, boolean isWeekend, int specia
     public int getTotalDiscount() {
         return dDay + dayOfTheWeek + specialDiscount + freeGiftDiscount;
     }
+
+    public int getTotalDiscountExcludeByFreeGift() {
+        return dDay + dayOfTheWeek + specialDiscount;
+    }
 }

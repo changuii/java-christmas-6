@@ -23,6 +23,7 @@ public enum OutputMessage {
     TOTAL_EVENT("<총혜택 금액>"),
     TOTAL_EVENT_DISCOUNT("-%,d원"),
     TOTAL_EVENT_DISCOUNT_EMPTY("0원"),
+    APPLIED_EVENT_TOTAL_PRICE("<할인 후 예상 결제 금액>"),
     EMPTY("없음");
     private final String message;
 

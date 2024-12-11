@@ -94,6 +94,12 @@ public class OutputView {
         print(OutputMessage.TOTAL_EVENT_DISCOUNT_EMPTY);
     }
 
+    public void printAppliedEventTotalPrice(final int appliedEventTotalPrice){
+        printLineBreak();
+        print(OutputMessage.APPLIED_EVENT_TOTAL_PRICE);
+        print(OutputMessage.TOTAL_PRICE_FORMAT, appliedEventTotalPrice);
+    }
+
     public void printErrorMessage(final CustomException customException) {
         print(customException.getMessage());
     }
