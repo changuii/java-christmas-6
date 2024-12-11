@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Order {
     private static final int ORDER_MENU_COUNT_MAX = 20;
+    private static final int FREE_GIFT_PRICE_BOUNDARY = 120_000;
     private final List<OrderMenu> orderMenus;
 
     private Order(final List<OrderMenu> orderMenus) {
@@ -22,6 +23,10 @@ public class Order {
         return orderMenus.stream()
                 .mapToInt(orderMenu -> orderMenu.calculateTotalPrice())
                 .sum();
+    }
+
+    public boolean isApplicableFreeGift() {
+        return calculateTotalPrice() >= FREE_GIFT_PRICE_BOUNDARY;
     }
 
 
