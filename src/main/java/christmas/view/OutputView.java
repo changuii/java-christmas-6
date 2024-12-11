@@ -16,6 +16,10 @@ public class OutputView {
         print(OutputMessage.MENUS_INPUT);
     }
 
+    public void printEventPreviewIntroduce(final int visitDay) {
+        print(OutputMessage.EVENT_PREVIEW_INTRODUCE, visitDay);
+    }
+
     private void print(final Object message, final Object... values) {
         System.out.println(formatMessage(message.toString(), values));
     }
