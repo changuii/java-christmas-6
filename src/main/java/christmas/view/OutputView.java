@@ -24,7 +24,8 @@ public class OutputView {
         print(OutputMessage.EVENT_PREVIEW_INTRODUCE, visitDay);
     }
 
-    private void printOrderMenus(final List<OrderDto> orderDto) {
+    public void printOrderMenus(final List<OrderDto> orderDto) {
+        printLineBreak();
         print(OutputMessage.ORDER_MENU);
         orderDto.forEach(menu -> print(menu.name()));
     }

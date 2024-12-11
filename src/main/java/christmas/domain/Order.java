@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.enums.ErrorMessage;
 import christmas.exception.CustomException;
+import java.util.Collections;
 import java.util.List;
 
 public class Order {
@@ -53,5 +54,9 @@ public class Order {
         return orderMenus.stream()
                 .mapToInt(orderMenu -> orderMenu.getCount())
                 .sum();
+    }
+
+    public List<OrderMenu> getOrderMenus() {
+        return Collections.unmodifiableList(orderMenus);
     }
 }
