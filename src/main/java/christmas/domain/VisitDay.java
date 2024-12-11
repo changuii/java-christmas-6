@@ -26,4 +26,8 @@ public class VisitDay {
             throw new CustomException(ErrorMessage.VISIT_DAY_INPUT_INVALID);
         }
     }
+
+    public int getVisitDay() {
+        return day;
+    }
 }

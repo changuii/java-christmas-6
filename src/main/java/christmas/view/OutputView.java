@@ -20,6 +20,7 @@ public class OutputView {
     }
 
     public void printEventPreviewIntroduce(final int visitDay) {
+        printLineBreak();
         print(OutputMessage.EVENT_PREVIEW_INTRODUCE, visitDay);
     }
 

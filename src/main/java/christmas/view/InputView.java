@@ -17,17 +17,13 @@ public class InputView {
     public int readVisitDay() {
         String input = Console.readLine();
         inputValidator.validateVisitDayText(input);
-        int visitDay = inputParser.parseVisitDay(input);
-        inputValidator.validateVisitDay(visitDay);
-        return visitDay;
+        return inputParser.parseVisitDay(input);
     }
 
     public List<OrderDto> readOrders() {
         String input = Console.readLine();
         inputValidator.validateOrderText(input);
-        List<OrderDto> orderDtos = inputParser.parseOrders(input);
-        inputValidator.validateOrders(orderDtos);
-        return orderDtos;
+        return inputParser.parseOrders(input);
     }
 
 }
