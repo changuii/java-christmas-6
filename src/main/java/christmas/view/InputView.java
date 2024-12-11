@@ -1,7 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.dto.MenuDto;
+import christmas.dto.OrderDto;
 import java.util.List;
 
 public class InputView {
@@ -22,12 +22,12 @@ public class InputView {
         return visitDay;
     }
 
-    public List<MenuDto> readMenus() {
+    public List<OrderDto> readOrders() {
         String input = Console.readLine();
-        inputValidator.validateMenusText(input);
-        List<MenuDto> menuDtos = inputParser.parseMenus(input);
-        inputValidator.validateMenus(menuDtos);
-        return menuDtos;
+        inputValidator.validateOrderText(input);
+        List<OrderDto> orderDtos = inputParser.parseOrders(input);
+        inputValidator.validateOrders(orderDtos);
+        return orderDtos;
     }
 
 }

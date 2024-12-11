@@ -1,6 +1,6 @@
 package christmas.view;
 
-import christmas.dto.MenuDto;
+import christmas.dto.OrderDto;
 import christmas.enums.ErrorMessage;
 import christmas.exception.CustomException;
 import java.util.Arrays;
@@ -18,17 +18,17 @@ public class InputParser {
         return parseInt(visitDayText, ErrorMessage.VISIT_DAY_INPUT_INVALID);
     }
 
-    public List<MenuDto> parseMenus(final String menusText) {
-        return Arrays.stream(menusText.split(MENUS_DELIMITER))
-                .map(menuText -> parseMenu(menuText))
+    public List<OrderDto> parseOrders(final String ordersText) {
+        return Arrays.stream(ordersText.split(MENUS_DELIMITER))
+                .map(orderText -> parseOrder(orderText))
                 .collect(Collectors.toList());
     }
 
-    private MenuDto parseMenu(final String menuText) {
-        String[] menu = menuText.split(MENU_DELIMITER);
+    private OrderDto parseOrder(final String orderText) {
+        String[] menu = orderText.split(MENU_DELIMITER);
         String name = menu[MENU_NAME_INDEX];
         int count = parseInt(menu[MENU_COUNT_INDEX], ErrorMessage.MENU_INVALID);
-        return new MenuDto(name, count);
+        return new OrderDto(name, count);
     }
 
     private int parseInt(final String textNum, final ErrorMessage errorMessage) {

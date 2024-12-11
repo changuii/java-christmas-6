@@ -2,7 +2,7 @@ package christmas.controller;
 
 import christmas.component.DtoConverter;
 import christmas.domain.Order;
-import christmas.dto.MenuDto;
+import christmas.dto.OrderDto;
 import christmas.handler.RetryHandler;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -36,8 +36,8 @@ public class ChristmasController {
 
     private Order inputOrder() {
         outputView.printMenusInput();
-        List<MenuDto> menuDtos = inputView.readMenus();
-        Order order = dtoConverter.menuDtosToOrder(menuDtos);
+        List<OrderDto> orderDtos = inputView.readOrders();
+        Order order = dtoConverter.orderDtosToOrder(orderDtos);
         return order;
     }
 

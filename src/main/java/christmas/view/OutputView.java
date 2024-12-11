@@ -1,6 +1,6 @@
 package christmas.view;
 
-import christmas.dto.MenuDto;
+import christmas.dto.OrderDto;
 import christmas.enums.OutputMessage;
 import christmas.exception.CustomException;
 import java.util.List;
@@ -23,9 +23,9 @@ public class OutputView {
         print(OutputMessage.EVENT_PREVIEW_INTRODUCE, visitDay);
     }
 
-    private void printOrderMenus(final List<MenuDto> menuDto) {
+    private void printOrderMenus(final List<OrderDto> orderDto) {
         print(OutputMessage.ORDER_MENU);
-        menuDto.forEach(menu -> print(menu.name()));
+        orderDto.forEach(menu -> print(menu.name()));
     }
 
     public void printErrorMessage(final CustomException customException) {
