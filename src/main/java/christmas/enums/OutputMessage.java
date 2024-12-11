@@ -9,7 +9,9 @@ public enum OutputMessage {
 
     EVENT_PREVIEW_INTRODUCE("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!"),
 
-    ORDER_MENU("<주문 메뉴>");
+    ORDER_MENU("<주문 메뉴>"),
+    TOTAL_PRICE("<할인 전 총주문 금액>"),
+    TOTAL_PRICE_FORMAT("%,d원");
     private final String message;
 
     OutputMessage(final String message) {

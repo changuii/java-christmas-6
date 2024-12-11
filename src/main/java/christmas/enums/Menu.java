@@ -51,7 +51,7 @@ public enum Menu {
 
     private static Menu getMenuByOrderName(final String orderName) {
         return Arrays.stream(values())
-                .filter(menu -> menu.equals(orderName))
+                .filter(menu -> menu.name.equals(orderName))
                 .findAny()
                 .orElseThrow(() -> new CustomException(ErrorMessage.ORDER_INVALID));
     }

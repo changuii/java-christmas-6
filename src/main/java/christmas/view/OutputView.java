@@ -30,6 +30,12 @@ public class OutputView {
         orderDto.forEach(menu -> print(menu.name()));
     }
 
+    public void printTotalPrice(final int totalPrice){
+        printLineBreak();
+        print(OutputMessage.TOTAL_PRICE);
+        print(OutputMessage.TOTAL_PRICE_FORMAT, totalPrice);
+    }
+
     public void printErrorMessage(final CustomException customException) {
         print(customException.getMessage());
     }
