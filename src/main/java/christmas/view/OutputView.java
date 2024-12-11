@@ -30,10 +30,20 @@ public class OutputView {
         orderDto.forEach(menu -> print(menu.name()));
     }
 
-    public void printTotalPrice(final int totalPrice){
+    public void printTotalPrice(final int totalPrice) {
         printLineBreak();
         print(OutputMessage.TOTAL_PRICE);
         print(OutputMessage.TOTAL_PRICE_FORMAT, totalPrice);
+    }
+
+    public void printFreeGift(final boolean isGiveFreeGift) {
+        printLineBreak();
+        print(OutputMessage.FREE_GIFT);
+        if (isGiveFreeGift) {
+            print(OutputMessage.FREE_GIFT_NAME);
+        } else {
+            print(OutputMessage.EMPTY);
+        }
     }
 
     public void printErrorMessage(final CustomException customException) {

@@ -31,10 +31,11 @@ public class ChristmasController {
         outputEventPreview(visitDay, order);
     }
 
-    public void outputEventPreview(final VisitDay visitDay, final Order order){
+    private void outputEventPreview(final VisitDay visitDay, final Order order){
         outputView.printEventPreviewIntroduce(visitDay.getVisitDay());
         outputView.printOrderMenus(dtoConverter.orderToOrderDtos(order));
         outputView.printTotalPrice(order.calculateTotalPrice());
+        outputView.printFreeGift(order.isApplicableFreeGift());
     }
 
     private VisitDay inputVisitDay() {

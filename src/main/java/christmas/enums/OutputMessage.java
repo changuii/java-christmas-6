@@ -11,7 +11,10 @@ public enum OutputMessage {
 
     ORDER_MENU("<주문 메뉴>"),
     TOTAL_PRICE("<할인 전 총주문 금액>"),
-    TOTAL_PRICE_FORMAT("%,d원");
+    TOTAL_PRICE_FORMAT("%,d원"),
+    FREE_GIFT("<증정 메뉴>"),
+    FREE_GIFT_NAME("샴페인 1개"),
+    EMPTY("없음");
     private final String message;
 
     OutputMessage(final String message) {
