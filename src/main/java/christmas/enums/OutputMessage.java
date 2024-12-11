@@ -20,6 +20,9 @@ public enum OutputMessage {
     WEEKEND_DAY_EVENT("주말 할인: -%,d원"),
     SPECIAL_DAY_EVENT("특별 할인: -%,d원"),
     FREE_GIFT_EVENT("증정 이벤트: -%,d원"),
+    TOTAL_EVENT("<총혜택 금액>"),
+    TOTAL_EVENT_DISCOUNT("-%,d원"),
+    TOTAL_EVENT_DISCOUNT_EMPTY("0원"),
     EMPTY("없음");
     private final String message;
 

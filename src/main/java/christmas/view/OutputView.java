@@ -56,8 +56,8 @@ public class OutputView {
         }
         printDDayEvent(eventDto.dDay());
         printDayOfTheWeekEvent(eventDto.dayOfTheWeek(), eventDto.isWeekend());
-        printSpecialDayEvent(eventDto.isSpecial());
-        printFreeGiftEvent(eventDto.isGiveFreeGift());
+        printSpecialDayEvent(eventDto.specialDiscount());
+        printFreeGiftEvent(eventDto.freeGiftDiscount());
     }
 
     private void printDDayEvent(final int dDayDiscount) {
@@ -82,6 +82,16 @@ public class OutputView {
         if (freeGiftDiscount != 0) {
             print(OutputMessage.FREE_GIFT_EVENT, freeGiftDiscount);
         }
+    }
+
+    public void printTotalEventDiscount(final EventDto eventDto){
+        printLineBreak();
+        print(OutputMessage.TOTAL_EVENT);
+        if(eventDto.getTotalDiscount() != 0){
+            print(OutputMessage.TOTAL_EVENT_DISCOUNT, eventDto.getTotalDiscount());
+            return;
+        }
+        print(OutputMessage.TOTAL_EVENT_DISCOUNT_EMPTY);
     }
 
     public void printErrorMessage(final CustomException customException) {

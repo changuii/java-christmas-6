@@ -37,24 +37,9 @@ public class ChristmasController {
         outputView.printOrderMenus(dtoConverter.orderToOrderDtos(order));
         outputView.printTotalPrice(order.calculateTotalPrice());
         outputView.printFreeGift(order.calculateFreeGiftDiscount());
-        outputView.printEventResult(makeEventDto(visitDay, order));
-    }
-
-    private EventDto makeEventDto(final VisitDay visitDay, final Order order) {
-        return new EventDto(
-                visitDay.calculateDDayEvent(),
-                calculateDayOfTheWeekDiscount(visitDay, order),
-                visitDay.isWeekend(),
-                visitDay.calculateSpecialDayEvent(),
-                order.calculateFreeGiftDiscount()
-        );
-    }
-
-    private int calculateDayOfTheWeekDiscount(final VisitDay visitDay, final Order order) {
-        if (visitDay.isWeekend()) {
-            return visitDay.calculateWeekendEvent(order.getTotalMainCount());
-        }
-        return visitDay.calculateWeekDaysEvent(order.getTotalDessertCount());
+        EventDto eventDto = dtoConverter.convertToEvnetDto(order, visitDay);
+        outputView.printEventResult(eventDto);
+        outputView.printTotalEventDiscount(eventDto);
     }
 
     private VisitDay inputVisitDay() {

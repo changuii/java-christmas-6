@@ -2,6 +2,8 @@ package christmas.component;
 
 import christmas.domain.Order;
 import christmas.domain.OrderMenu;
+import christmas.domain.VisitDay;
+import christmas.dto.EventDto;
 import christmas.dto.OrderDto;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +18,23 @@ public class DtoConverter {
         return order.getOrderMenus().stream()
                 .map(this::orderMenuToOrderDto)
                 .collect(Collectors.toList());
+    }
+
+    public EventDto convertToEvnetDto(final Order order, final VisitDay visitDay) {
+        return new EventDto(
+                visitDay.calculateDDayEvent(),
+                calculateDayOfTheWeekDiscount(visitDay, order),
+                visitDay.isWeekend(),
+                visitDay.calculateSpecialDayEvent(),
+                order.calculateFreeGiftDiscount()
+        );
+    }
+
+    private int calculateDayOfTheWeekDiscount(final VisitDay visitDay, final Order order) {
+        if (visitDay.isWeekend()) {
+            return visitDay.calculateWeekendEvent(order.getTotalMainCount());
+        }
+        return visitDay.calculateWeekDaysEvent(order.getTotalDessertCount());
     }
 
     private List<OrderMenu> orderDtosToOrderMenus(final List<OrderDto> orderDtos) {
