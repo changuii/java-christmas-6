@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.enums.ErrorMessage;
 import christmas.enums.Menu;
+import christmas.enums.MenuType;
 import christmas.exception.CustomException;
 import java.util.Objects;
 
@@ -33,8 +34,8 @@ public class OrderMenu {
         }
     }
 
-    public boolean isDrink() {
-        return Menu.isDrink(name);
+    public boolean isMenuType(final MenuType menuType) {
+        return Menu.isMenuType(name, menuType);
     }
 
     public int calculateTotalPrice() {

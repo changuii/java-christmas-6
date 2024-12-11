@@ -1,6 +1,8 @@
 package christmas.domain;
 
 import christmas.enums.ErrorMessage;
+import christmas.enums.Menu;
+import christmas.enums.MenuType;
 import christmas.exception.CustomException;
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.List;
 public class Order {
     private static final int ORDER_MENU_COUNT_MAX = 20;
     private static final int FREE_GIFT_PRICE_BOUNDARY = 120_000;
+    private static final int FREE_GIFT_DISCOUNT = Menu.calculatePrice("샴페인", 1);
+    private static final int FREE_GIFT_EMPTY = 0;
     private final List<OrderMenu> orderMenus;
 
     private Order(final List<OrderMenu> orderMenus) {
@@ -25,8 +29,23 @@ public class Order {
                 .sum();
     }
 
-    public boolean isApplicableFreeGift() {
+    public int calculateFreeGiftDiscount() {
+        if (isApplicableFreeGift()) {
+            return FREE_GIFT_DISCOUNT;
+        }
+        return FREE_GIFT_EMPTY;
+    }
+
+    private boolean isApplicableFreeGift() {
         return calculateTotalPrice() >= FREE_GIFT_PRICE_BOUNDARY;
+    }
+
+    public int getTotalMainCount() {
+        return getTotalCountByMenuType(MenuType.MAIN);
+    }
+
+    public int getTotalDessertCount() {
+        return getTotalCountByMenuType(MenuType.DESSERT);
     }
 
 
@@ -44,7 +63,7 @@ public class Order {
 
     private void validateOrderMenusNotOnlyDrink(final List<OrderMenu> orderMenus) {
         orderMenus.stream()
-                .filter(orderMenu -> !orderMenu.isDrink())
+                .filter(orderMenu -> !orderMenu.isMenuType(MenuType.DRINK))
                 .findAny()
                 .orElseThrow(() -> new CustomException(ErrorMessage.ORDER_INVALID));
     }
@@ -53,6 +72,13 @@ public class Order {
         if (orderMenus.stream().distinct().count() != orderMenus.size()) {
             throw new CustomException(ErrorMessage.ORDER_INVALID);
         }
+    }
+
+    private int getTotalCountByMenuType(final MenuType menuType) {
+        return orderMenus.stream()
+                .filter(orderMenu -> orderMenu.isMenuType(menuType))
+                .mapToInt(orderMenu -> orderMenu.getCount())
+                .sum();
     }
 
     private int getTotalCount(final List<OrderMenu> orderMenus) {

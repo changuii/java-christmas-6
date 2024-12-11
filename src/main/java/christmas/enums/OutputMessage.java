@@ -14,6 +14,12 @@ public enum OutputMessage {
     TOTAL_PRICE_FORMAT("%,d원"),
     FREE_GIFT("<증정 메뉴>"),
     FREE_GIFT_NAME("샴페인 1개"),
+    EVENT_RESULT("<혜택 내역>"),
+    D_DAY_EVENT("크리스마스 디데이 할인: -%,d원"),
+    WEEK_DAYS_EVENT("평일 할인: -%,d원"),
+    WEEKEND_DAY_EVENT("주말 할인: -%,d원"),
+    SPECIAL_DAY_EVENT("특별 할인: -%,d원"),
+    FREE_GIFT_EVENT("증정 이벤트: -%,d원"),
     EMPTY("없음");
     private final String message;
 

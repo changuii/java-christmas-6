@@ -40,9 +40,9 @@ public enum Menu {
                 .anyMatch(menu -> menu.name.equals(orderName));
     }
 
-    public static boolean isDrink(final String orderName) {
+    public static boolean isMenuType(final String orderName, final MenuType menuType) {
         return Arrays.stream(values())
-                .anyMatch(menu -> menu.name.equals(orderName) && menu.menuType == MenuType.DRINK);
+                .anyMatch(menu -> menu.name.equals(orderName) && menu.menuType == menuType);
     }
 
     public static int calculatePrice(final String orderName, final int orderCount) {

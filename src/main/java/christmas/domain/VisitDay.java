@@ -60,8 +60,11 @@ public class VisitDay {
         return EMPTY_DISCOUNT;
     }
 
-    public int calculateSpecialEvent() {
-        return SPECIAL_DAY_EVENT_DISCOUNT;
+    public int calculateSpecialDayEvent(){
+        if(isSpecialDay()){
+            return SPECIAL_DAY_EVENT_DISCOUNT;
+        }
+        return EMPTY_DISCOUNT;
     }
 
     private boolean isApplicableDDay() {
@@ -73,7 +76,7 @@ public class VisitDay {
         return todayOfTheWeek < WEEKEND_START || WEEKEND_END < todayOfTheWeek;
     }
 
-    private boolean isWeekend() {
+    public boolean isWeekend() {
         int todayOfTheWeek = getDayOfTheWeek();
         return WEEKEND_START <= todayOfTheWeek && todayOfTheWeek <= WEEKEND_END;
     }

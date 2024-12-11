@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.dto.EventDto;
 import christmas.dto.OrderDto;
 import christmas.enums.OutputMessage;
 import christmas.exception.CustomException;
@@ -36,13 +37,50 @@ public class OutputView {
         print(OutputMessage.TOTAL_PRICE_FORMAT, totalPrice);
     }
 
-    public void printFreeGift(final boolean isGiveFreeGift) {
+    public void printFreeGift(final int isGiveFreeGift) {
         printLineBreak();
         print(OutputMessage.FREE_GIFT);
-        if (isGiveFreeGift) {
+        if (isGiveFreeGift != 0) {
             print(OutputMessage.FREE_GIFT_NAME);
         } else {
             print(OutputMessage.EMPTY);
+        }
+    }
+
+    public void printEventResult(final EventDto eventDto) {
+        printLineBreak();
+        print(OutputMessage.EVENT_RESULT);
+        if (eventDto.isEmpty()) {
+            print(OutputMessage.EMPTY);
+            return;
+        }
+        printDDayEvent(eventDto.dDay());
+        printDayOfTheWeekEvent(eventDto.dayOfTheWeek(), eventDto.isWeekend());
+        printSpecialDayEvent(eventDto.isSpecial());
+        printFreeGiftEvent(eventDto.isGiveFreeGift());
+    }
+
+    private void printDDayEvent(final int dDayDiscount) {
+        print(OutputMessage.D_DAY_EVENT, dDayDiscount);
+    }
+
+    private void printDayOfTheWeekEvent(final int dayOfTheWeekDiscount, final boolean isWeekend) {
+        if (isWeekend) {
+            print(OutputMessage.WEEKEND_DAY_EVENT, dayOfTheWeekDiscount);
+            return;
+        }
+        print(OutputMessage.WEEK_DAYS_EVENT, dayOfTheWeekDiscount);
+    }
+
+    private void printSpecialDayEvent(final int specialDiscount) {
+        if (specialDiscount != 0) {
+            print(OutputMessage.SPECIAL_DAY_EVENT, specialDiscount);
+        }
+    }
+
+    private void printFreeGiftEvent(final int freeGiftDiscount) {
+        if (freeGiftDiscount != 0) {
+            print(OutputMessage.FREE_GIFT_EVENT, freeGiftDiscount);
         }
     }
 
