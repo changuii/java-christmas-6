@@ -27,7 +27,7 @@ public class InputParser {
     private OrderDto parseOrder(final String orderText) {
         String[] menu = orderText.split(MENU_DELIMITER);
         String name = menu[MENU_NAME_INDEX];
-        int count = parseInt(menu[MENU_COUNT_INDEX], ErrorMessage.MENU_INVALID);
+        int count = parseInt(menu[MENU_COUNT_INDEX], ErrorMessage.ORDER_INVALID);
         return new OrderDto(name, count);
     }
 

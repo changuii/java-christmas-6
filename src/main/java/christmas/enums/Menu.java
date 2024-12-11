@@ -53,7 +53,7 @@ public enum Menu {
         return Arrays.stream(values())
                 .filter(menu -> menu.equals(orderName))
                 .findAny()
-                .orElseThrow(() -> new CustomException(ErrorMessage.MENU_INVALID));
+                .orElseThrow(() -> new CustomException(ErrorMessage.ORDER_INVALID));
     }
 
 }

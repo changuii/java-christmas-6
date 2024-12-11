@@ -2,6 +2,7 @@ package christmas.controller;
 
 import christmas.component.DtoConverter;
 import christmas.domain.Order;
+import christmas.domain.VisitDay;
 import christmas.dto.OrderDto;
 import christmas.handler.RetryHandler;
 import christmas.view.InputView;
@@ -25,13 +26,14 @@ public class ChristmasController {
 
     public void run() {
         outputView.printEventIntroduce();
-        int visitDay = retryHandler.retryUntilNotException(this::inputVisitDay, outputView::printErrorMessage);
+        VisitDay visitDay = retryHandler.retryUntilNotException(this::inputVisitDay, outputView::printErrorMessage);
         Order order = retryHandler.retryUntilNotException(this::inputOrder, outputView::printErrorMessage);
     }
 
-    private int inputVisitDay() {
+    private VisitDay inputVisitDay() {
         outputView.printVisitDayInput();
-        return inputView.readVisitDay();
+        int visitDay = inputView.readVisitDay();
+        return VisitDay.from(visitDay);
     }
 
     private Order inputOrder() {

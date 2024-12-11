@@ -27,11 +27,12 @@ public class Order {
     private void validate(final List<OrderMenu> orderMenus) {
         validateOrderMenusTotalCountLessThanMax(orderMenus);
         validateOrderMenusNotOnlyDrink(orderMenus);
+        validateDuplicationOrderMenus(orderMenus);
     }
 
     private void validateOrderMenusTotalCountLessThanMax(final List<OrderMenu> orderMenus) {
         if (getTotalCount(orderMenus) > ORDER_MENU_COUNT_MAX) {
-            throw new CustomException(ErrorMessage.MENU_INVALID);
+            throw new CustomException(ErrorMessage.ORDER_INVALID);
         }
     }
 
@@ -39,7 +40,13 @@ public class Order {
         orderMenus.stream()
                 .filter(orderMenu -> !orderMenu.isDrink())
                 .findAny()
-                .orElseThrow(() -> new CustomException(ErrorMessage.MENU_INVALID));
+                .orElseThrow(() -> new CustomException(ErrorMessage.ORDER_INVALID));
+    }
+
+    private void validateDuplicationOrderMenus(final List<OrderMenu> orderMenus) {
+        if (orderMenus.stream().distinct().count() != orderMenus.size()) {
+            throw new CustomException(ErrorMessage.ORDER_INVALID);
+        }
     }
 
     private int getTotalCount(final List<OrderMenu> orderMenus) {
