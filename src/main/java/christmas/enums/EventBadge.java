@@ -8,8 +8,6 @@ public enum EventBadge {
     TREE("트리", 10_000),
     STAR("별", 5_000),
     EMPTY("없음", 0);
-
-    private static final int BADGE_RECEIVE_MIN = 5_000;
     private final String name;
     private final int boundary;
 
@@ -23,5 +21,10 @@ public enum EventBadge {
                 .filter(eventBadge -> eventDiscount >= eventBadge.boundary)
                 .findFirst()
                 .orElse(EMPTY);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

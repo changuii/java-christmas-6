@@ -2,6 +2,7 @@ package christmas.view;
 
 import christmas.dto.EventDto;
 import christmas.dto.OrderDto;
+import christmas.enums.EventBadge;
 import christmas.enums.OutputMessage;
 import christmas.exception.CustomException;
 import java.util.List;
@@ -84,20 +85,26 @@ public class OutputView {
         }
     }
 
-    public void printTotalEventDiscount(final EventDto eventDto){
+    public void printTotalEventDiscount(final EventDto eventDto) {
         printLineBreak();
         print(OutputMessage.TOTAL_EVENT);
-        if(eventDto.getTotalDiscount() != 0){
+        if (eventDto.getTotalDiscount() != 0) {
             print(OutputMessage.TOTAL_EVENT_DISCOUNT, eventDto.getTotalDiscount());
             return;
         }
         print(OutputMessage.TOTAL_EVENT_DISCOUNT_EMPTY);
     }
 
-    public void printAppliedEventTotalPrice(final int appliedEventTotalPrice){
+    public void printAppliedEventTotalPrice(final int appliedEventTotalPrice) {
         printLineBreak();
         print(OutputMessage.APPLIED_EVENT_TOTAL_PRICE);
         print(OutputMessage.TOTAL_PRICE_FORMAT, appliedEventTotalPrice);
+    }
+
+    public void printEventBadge(final EventBadge eventBadge) {
+        printLineBreak();
+        print(OutputMessage.EVENT_BADGE);
+        print(eventBadge);
     }
 
     public void printErrorMessage(final CustomException customException) {

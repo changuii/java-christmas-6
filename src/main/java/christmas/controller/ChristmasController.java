@@ -5,6 +5,7 @@ import christmas.domain.Order;
 import christmas.domain.VisitDay;
 import christmas.dto.EventDto;
 import christmas.dto.OrderDto;
+import christmas.enums.EventBadge;
 import christmas.handler.RetryHandler;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -42,6 +43,7 @@ public class ChristmasController {
         outputView.printTotalEventDiscount(eventDto);
         outputView.printAppliedEventTotalPrice(
                 order.calculateTotalPrice() - eventDto.getTotalDiscountExcludeByFreeGift());
+        outputView.printEventBadge(EventBadge.matchBadge(eventDto.getTotalDiscount()));
     }
 
     private VisitDay inputVisitDay() {
