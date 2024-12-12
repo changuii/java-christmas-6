@@ -5,6 +5,7 @@ import christmas.domain.Order;
 import christmas.domain.VisitDay;
 import christmas.dto.EventDto;
 import christmas.dto.OrderDto;
+import christmas.dto.OrderVisitDto;
 import christmas.enums.EventBadge;
 import christmas.handler.RetryHandler;
 import christmas.view.InputView;
@@ -30,20 +31,26 @@ public class ChristmasController {
         outputView.printEventIntroduce();
         VisitDay visitDay = retryHandler.retryUntilNotException(this::inputVisitDay, outputView::printErrorMessage);
         Order order = retryHandler.retryUntilNotException(this::inputOrder, outputView::printErrorMessage);
-        outputEventPreview(visitDay, order);
+        EventDto eventDto = handleNotApplicableEvent(dtoConverter.convertToEvnetDto(order, visitDay));
+        outputOrderVisit(dtoConverter.convertToOrderVisitDto(order, visitDay));
+        outputEventPreview(eventDto);
     }
 
-    private void outputEventPreview(final VisitDay visitDay, final Order order) {
-        outputView.printEventPreviewIntroduce(visitDay.getVisitDay());
-        outputView.printOrderMenus(dtoConverter.orderToOrderDtos(order));
-        outputView.printTotalPrice(order.calculateTotalPrice());
-        outputView.printFreeGift(order.calculateFreeGiftDiscount());
-        EventDto eventDto = dtoConverter.convertToEvnetDto(order, visitDay);
-        outputView.printEventResult(eventDto);
-        outputView.printTotalEventDiscount(eventDto);
-        outputView.printAppliedEventTotalPrice(
-                order.calculateTotalPrice() - eventDto.getTotalDiscountExcludeByFreeGift());
+    private void outputOrderVisit(final OrderVisitDto orderVisitDto) {
+        outputView.printOrderVisit(orderVisitDto);
+    }
+
+    private void outputEventPreview(final EventDto eventDto) {
+        outputView.printEvent(eventDto);
+        outputView.printAppliedEventTotalPrice(eventDto);
         outputView.printEventBadge(EventBadge.matchBadge(eventDto.getTotalDiscount()));
+    }
+
+    private EventDto handleNotApplicableEvent(final EventDto eventDto) {
+        if (eventDto.totalPrice() >= 10_000) {
+            return eventDto;
+        }
+        return EventDto.empty(eventDto.totalPrice());
     }
 
     private VisitDay inputVisitDay() {

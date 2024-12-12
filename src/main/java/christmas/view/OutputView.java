@@ -2,6 +2,7 @@ package christmas.view;
 
 import christmas.dto.EventDto;
 import christmas.dto.OrderDto;
+import christmas.dto.OrderVisitDto;
 import christmas.enums.EventBadge;
 import christmas.enums.OutputMessage;
 import christmas.exception.CustomException;
@@ -21,34 +22,46 @@ public class OutputView {
         print(OutputMessage.MENUS_INPUT);
     }
 
-    public void printEventPreviewIntroduce(final int visitDay) {
+    public void printOrderVisit(final OrderVisitDto orderVisitDto) {
+        printEventPreviewIntroduce(orderVisitDto.visitDay());
+        printOrderMenus(orderVisitDto.orderDtos());
+        printTotalPrice(orderVisitDto.orderTotalPrice());
+    }
+
+    private void printEventPreviewIntroduce(final int visitDay) {
         printLineBreak();
         print(OutputMessage.EVENT_PREVIEW_INTRODUCE, visitDay);
     }
 
-    public void printOrderMenus(final List<OrderDto> orderDto) {
+    private void printOrderMenus(final List<OrderDto> orderDto) {
         printLineBreak();
         print(OutputMessage.ORDER_MENU);
         orderDto.forEach(menu -> print(menu.name()));
     }
 
-    public void printTotalPrice(final int totalPrice) {
+    private void printTotalPrice(final int totalPrice) {
         printLineBreak();
         print(OutputMessage.TOTAL_PRICE);
         print(OutputMessage.TOTAL_PRICE_FORMAT, totalPrice);
     }
 
-    public void printFreeGift(final int isGiveFreeGift) {
+    public void printEvent(final EventDto eventDto) {
+        printFreeGift(eventDto.freeGiftDiscount());
+        printEventResult(eventDto);
+        printTotalEventDiscount(eventDto);
+    }
+
+    private void printFreeGift(final int freeGiftDiscount) {
         printLineBreak();
         print(OutputMessage.FREE_GIFT);
-        if (isGiveFreeGift != 0) {
+        if (freeGiftDiscount != 0) {
             print(OutputMessage.FREE_GIFT_NAME);
         } else {
             print(OutputMessage.EMPTY);
         }
     }
 
-    public void printEventResult(final EventDto eventDto) {
+    private void printEventResult(final EventDto eventDto) {
         printLineBreak();
         print(OutputMessage.EVENT_RESULT);
         if (eventDto.isEmpty()) {
@@ -85,7 +98,7 @@ public class OutputView {
         }
     }
 
-    public void printTotalEventDiscount(final EventDto eventDto) {
+    private void printTotalEventDiscount(final EventDto eventDto) {
         printLineBreak();
         print(OutputMessage.TOTAL_EVENT);
         if (eventDto.getTotalDiscount() != 0) {
@@ -95,10 +108,10 @@ public class OutputView {
         print(OutputMessage.TOTAL_EVENT_DISCOUNT_EMPTY);
     }
 
-    public void printAppliedEventTotalPrice(final int appliedEventTotalPrice) {
+    public void printAppliedEventTotalPrice(final EventDto eventDto) {
         printLineBreak();
         print(OutputMessage.APPLIED_EVENT_TOTAL_PRICE);
-        print(OutputMessage.TOTAL_PRICE_FORMAT, appliedEventTotalPrice);
+        print(OutputMessage.TOTAL_PRICE_FORMAT, eventDto.calculateAppliedTotalPrice());
     }
 
     public void printEventBadge(final EventBadge eventBadge) {

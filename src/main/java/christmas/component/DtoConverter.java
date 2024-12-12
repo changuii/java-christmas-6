@@ -5,6 +5,7 @@ import christmas.domain.OrderMenu;
 import christmas.domain.VisitDay;
 import christmas.dto.EventDto;
 import christmas.dto.OrderDto;
+import christmas.dto.OrderVisitDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,15 @@ public class DtoConverter {
         return Order.from(orderDtosToOrderMenus(orderDtos));
     }
 
-    public List<OrderDto> orderToOrderDtos(final Order order) {
+    public OrderVisitDto convertToOrderVisitDto(final Order order, final VisitDay visitDay) {
+        return new OrderVisitDto(
+                visitDay.getVisitDay(),
+                orderToOrderDtos(order),
+                order.calculateTotalPrice()
+        );
+    }
+
+    private List<OrderDto> orderToOrderDtos(final Order order) {
         return order.getOrderMenus().stream()
                 .map(this::orderMenuToOrderDto)
                 .collect(Collectors.toList());
@@ -26,7 +35,8 @@ public class DtoConverter {
                 calculateDayOfTheWeekDiscount(visitDay, order),
                 visitDay.isWeekend(),
                 visitDay.calculateSpecialDayEvent(),
-                order.calculateFreeGiftDiscount()
+                order.calculateFreeGiftDiscount(),
+                order.calculateTotalPrice()
         );
     }
 

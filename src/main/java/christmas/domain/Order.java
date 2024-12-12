@@ -12,6 +12,7 @@ public class Order {
     private static final int FREE_GIFT_PRICE_BOUNDARY = 120_000;
     private static final int FREE_GIFT_DISCOUNT = Menu.calculatePrice("샴페인", 1);
     private static final int FREE_GIFT_EMPTY = 0;
+    private static final int EVENT_PRICE_MIN = 10_000;
     private final List<OrderMenu> orderMenus;
 
     private Order(final List<OrderMenu> orderMenus) {
@@ -30,7 +31,7 @@ public class Order {
     }
 
     public int calculateFreeGiftDiscount() {
-        if (isApplicableFreeGift()) {
+        if (isApplicableFreeGift() && calculateTotalPrice() >= EVENT_PRICE_MIN) {
             return FREE_GIFT_DISCOUNT;
         }
         return FREE_GIFT_EMPTY;
